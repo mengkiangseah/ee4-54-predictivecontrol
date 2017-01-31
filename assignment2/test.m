@@ -31,3 +31,11 @@ G_actual = 2 * Gamma' * Qbar * Phi;
 
 wrong2 = sum(sum(round(H, 8) ~= round(H_actual, 8))) + sum(sum(round(G, 8) ~= round(G_actual, 8)));
 disp(wrong2);
+
+% Test for myRHC
+m = 2;
+K = myRHC(H,G,m);
+L = -(H\G);
+Lm = L(1:2, 1:3);
+wrong3 = sum(sum(round(Lm, 8) ~= round(K, 8)));
+disp(wrong3);
