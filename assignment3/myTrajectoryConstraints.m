@@ -15,4 +15,3 @@ function [DD, EE, bb] = myTrajectoryConstraints(Dt, Et, bt, N)
     bb =  kron(ones(N, 1), bt);
 
 end
-

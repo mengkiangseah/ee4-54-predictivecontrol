@@ -1,4 +1,4 @@
-function [Dt,Et,bt] = myStageConstraints(A ,B, D, cl , ch, ul, uh)
+function [Dt,Et,bt] = myStageConstraints(A ,B, D, cl, ch, ul, uh)
 % MYSTAGECONSTRAINTS  [Dt,Et,bt] = myStageConstraints(A ,B, D, cl , ch, ul, uh)
 % A and B are discrete-time state space matrices for x[k+1]=Ax[k]+Bu[k]
 % D is the weighting for the constraints, Dx_k within interval
