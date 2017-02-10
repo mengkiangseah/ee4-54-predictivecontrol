@@ -1,7 +1,9 @@
 % Testing script for Assignment 3 functions.
+addpath('../assignment1')
+addpath('../assignment2')
 
 % 0 to choose not to test. 1 to select.
-choices = [1, 1, 0, 0];
+choices = [1, 1, 1, 0];
 
 % Prepare some reused stuff.
 A = magic(3);
@@ -64,6 +66,27 @@ end
 
 % Test for myConstraintMatrices.m
 if choices(3) == 1
+    [Dt,Et,bt] = myStageConstraints(A, B, D, cl, ch, ul, uh);
+    N = 3;
+    [DD,EE,bb] = myTrajectoryConstraints(Dt, Et, bt, N);
+    [Gamma,Phi] = myPrediction(A, B, N);
+    [F, J, L] = myConstraintMatrices(DD, EE, Gamma, Phi, N);
+    
+    F_correct = (DD * Gamma) + EE;
+    J_correct = -1 * (DD * Phi);
+    L_correct = (-1 * J) - (DD * [eye(3); eye(3); eye(3)]);
+    
+    wrong3 = sum(sum(round(F_correct, 8) ~= round(F, 8))) + ...
+        sum(sum(round(J_correct, 8) ~= round(J, 8))) + ...
+        sum(sum(round(L_correct, 8) ~= round(L, 8)));
+    
+    if wrong3 > 0
+        disp('Test for myConstraintMatrices.m failed.');
+        disp('Wrong values: ');
+        disp(wrong3);
+    else
+        disp('Test for myConstraintMatrices.m passed.');
+    end
 end
 
 % Test for myMPController.m
