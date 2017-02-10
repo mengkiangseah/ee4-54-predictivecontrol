@@ -72,8 +72,11 @@ if choices(3) == 1
     [Gamma,Phi] = myPrediction(A, B, N);
     [F, J, L] = myConstraintMatrices(DD, EE, Gamma, Phi, N);
     
-    F_correct = (DD * Gamma) + EE;
-    J_correct = -1 * (DD * Phi);
+    Gamma_tilda = [zeros(3, 6); Gamma(1:6, :)];
+    Phi_tilda = [eye(3); Phi(1:6, :)];
+    
+    F_correct = (DD * Gamma_tilda) + EE;
+    J_correct = -1 * (DD * Phi_tilda);
     L_correct = (-1 * J) - (DD * [eye(3); eye(3); eye(3)]);
     
     wrong3 = sum(sum(round(F_correct, 8) ~= round(F, 8))) + ...
