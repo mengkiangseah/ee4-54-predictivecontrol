@@ -11,8 +11,8 @@ Ts=1/20;
 %% Define other parameters
 N=ceil(3/Ts); % ceiling to ensure N is an integer
 T=5;
-xTarget=[0.4 0 0.5 0 0 0 0 0]';% target equilibrium state
-x0=[xRange(2)/2 0 yRange(2)/2 0 0 0 0 0]'; % starting offset
+xTarget=[0.4 0 0.5 0 0.1 0 0.1 0]';% target equilibrium state
+x0=[0.1 0 0.1 0 0 0 0 0]'; % starting offset
 
 %% Declare penalty matrices and tune them here:
 Q=eye(8);
