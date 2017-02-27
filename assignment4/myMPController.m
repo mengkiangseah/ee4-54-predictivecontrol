@@ -27,7 +27,7 @@ function [u,status,iA1] = myMPController(H, G, gs, F, bb, J, L, x, xTarget, nu, 
     % Has already happened.
     A = -F;
     b = -(bb + (J * x) + (L * xTarget));
-    [U, status, iA1] = mpcqpsolver(H, [G * (x - xTarget); gs], A, b, [], zeros(0,1), iA, opt);
+    [U, status, iA1] = mpcqpsolver(H, [(x - xTarget)' * G', gs']', A, b, [], zeros(0,1), iA, opt);
     % Your code ends here
     % Copy and paste the indicated parts of your code above to the Simulink model
     u=U(1:nu);

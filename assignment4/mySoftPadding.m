@@ -25,19 +25,19 @@ function [Hs, gs, Fs, bs, Js, Ls] = mySoftPadding(H, F, bb, J, L, S, rho, m)
     % First zero is: Nm x Nc, second: Nc x Nm.
     z1 = zeros(N * m, N * c);
     z2 = zeros(N * c, N * m);
-    Hs = [H, z1; z2, kron(eye(N), S)];
+    Hs = [H, z1; z2, 2 * kron(eye(N), S)];
 
     % gs is: rho * ones(N*c)
     gs = rho * ones(N*c, 1);
 
     % Fs is: [F, I_bar; 0, -eye(N*c)]
-    % 0 is: N*c x size(F, 2)
+    % 0 is: N*c x N*m (F columns is Nm)
     % I_bar is: eye(N) kron I_tilda
     % I_tilda is: [eye(c; -eye(c); 0; 0]
     % Combined, 0s in I_tilda are 2m x c.
     I_tilda = [eye(c); -eye(c); zeros(2 * m, c)];
     I_bar = kron(eye(N), I_tilda);
-    Fs = [F, I_bar; zeros(N*c, size(F, 2)), -eye(N*c)];
+    Fs = [F, I_bar; zeros(N*c, N*m), -eye(N*c)];
 
     % bs, aka bs_bar = [b_bar (aka bb); 0]
     % 0 is N*c x size(bb, 2)
@@ -52,4 +52,3 @@ function [Hs, gs, Fs, bs, Js, Ls] = mySoftPadding(H, F, bb, J, L, S, rho, m)
     Ls = [L; zeros(N*c, size(L, 2))];
 
 end
-

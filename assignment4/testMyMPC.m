@@ -39,8 +39,8 @@ cl=[0;  0; -angleConstraint;  -angleConstraint];
 ch=[0.9*xRange(2);  0.9*yRange(2);  angleConstraint;  angleConstraint];
 
 % Input constraints (hard)
-ul=[-1; -1];
-uh=[1; 1];
+ul=[-2; -2];
+uh=[2; 2];
 
 %% Compute stage constraint matrices and vector
 [Dt,Et,bt]=genStageConstraints(A,B,D,cl,ch,ul,uh);
