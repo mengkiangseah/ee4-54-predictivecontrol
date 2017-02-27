@@ -1,4 +1,4 @@
-function [u,status,iA1] = myMPController(H,G,gs,F,bb,J,L,x,xTarget,nu,iA)
+function [u,status,iA1] = myMPController(H, G, gs, F, bb, J, L, x, xTarget, nu, iA)
 % H       - quadratic term in the cost function (Linv if using mpcqpsolver).
 % G       - matrix in the linear term of the cost function.
 % gs      - vector in the linear term of the cost function.
@@ -18,14 +18,18 @@ function [u,status,iA1] = myMPController(H,G,gs,F,bb,J,L,x,xTarget,nu,iA)
 % Please read the documentation on mpcqpsolver to understand how it is
 % suppose to be used. Use iA and iA1 to pass the active inequality vector 
 
-opt = mpcqpsolverOptions;
-%opt.IntegrityChecks = false; % for code generation
-opt.FeasibilityTol = 1e-3;
-opt.DataType = 'double';
-% your code starts here
-[U,status,iA1]=mpcqpsolver(%your code%,%your code%,%your code$,%your code%,[],zeros(0,1),iA,opt);
-% your code ends here
-% Copy and paste the indicated parts of your code above to the Simulink model
-u=U(1:nu);
+    opt = mpcqpsolverOptions;
+    %opt.IntegrityChecks = false; % for code generation
+    opt.FeasibilityTol = 1e-3;
+    opt.DataType = 'double';
+    % Your code starts here
+    % H = Hs; F = Fs; bb = bs; J = Js; L = Ls;
+    % Has already happened.
+    A = -F;
+    b = -(bb + (J * x) + (L * xTarget));
+    [U, status, iA1] = mpcqpsolver(H, [G * (x - xTarget); gs], A, b, [], zeros(0,1), iA, opt);
+    % Your code ends here
+    % Copy and paste the indicated parts of your code above to the Simulink model
+    u=U(1:nu);
 end
 
