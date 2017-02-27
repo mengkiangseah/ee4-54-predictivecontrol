@@ -35,7 +35,7 @@ function [Hs, gs, Fs, bs, Js, Ls] = mySoftPadding(H, F, bb, J, L, S, rho, m)
     % I_bar is: eye(N) kron I_tilda
     % I_tilda is: [eye(c; -eye(c); 0; 0]
     % Combined, 0s in I_tilda are 2m x c.
-    I_tilda = [eye(c); -eye(c); zeros(2 * m, c)];
+    I_tilda = [-eye(c); -eye(c); zeros(2 * m, c)];
     I_bar = kron(eye(N), I_tilda);
     Fs = [F, I_bar; zeros(N*c, N*m), -eye(N*c)];
 
