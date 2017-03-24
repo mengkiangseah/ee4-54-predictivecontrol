@@ -4,3 +4,6 @@
 
 # The PDF outputs from my TEX stuff.
 *.pdf
+
+#Simulink project folder output?
+slprj/
