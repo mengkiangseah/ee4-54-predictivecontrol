@@ -1,3 +1,6 @@
 # Things to ignore
 # MATLAB temp files.
 *.m~
+
+# The PDF outputs from my TEX stuff.
+*.pdf
