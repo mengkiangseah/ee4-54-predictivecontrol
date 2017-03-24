@@ -1,20 +1,7 @@
 close all
-%% Load the parameters
-load('Params_Simscape.mat');
-load('SSmodelParams.mat');
 %% Declare simulation parameters
 % Load the matrices using a solution from the previous assignment
 [A,B,C,D] = myCraneODE(m,M,MR,r,g,Tx,Ty,Vm,Ts);
-
-% Determine start point
-xZero = xTargets(1,1);
-yZero = xTargets(1,2);
-%% Declare penalty matrices and tune them here:
-Q=eye(8) * 10;
-R=eye(2) * .001;
-P=Q * 10;
-Q(1,1) = 100;
-Q(3,3) = 100;
 %% Compose prediction matrices for RHC
 % your myPrediction function is called here and the variables Gamma and Phi are 
 % declared in the workspace. 

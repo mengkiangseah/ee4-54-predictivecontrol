@@ -1,22 +1,9 @@
-clear variables
+%% Get ready
 close all
 clc
-%% SimscapeCrane_MPC_start;
-load('Params_Simscape.mat');
-load('SSmodelParams.mat');
-%% Set sample period and prediction horizon
-Ts=1/10;
-Tf=1.5; % duration of prediction horizon in seconds
-N=ceil(Tf/Ts); % ceiling to ensure horizon length N is an integer
 
 %% Load the dynamics matrices using a solution from last assignment
 [A,B,C,~] = myCraneODE(m,M,MR,r,g,Tx,Ty,Vm,Ts);
-
-%% Define other simulation parameters
-T=6; % duration of simulation
-xTarget=0.8*[xRange(2) 0 yRange(2) 0 0 0 0 0]'; % target equilibrium state
-xZero=xRange(1); yZero=yRange(1);
-x0=[xZero 0 yZero 0 0 0 0 0]'; % initial state
 
 %% Declare penalty matrices and tune them here:
 Q=zeros(8);
