@@ -11,10 +11,22 @@ allOpt=[];
 allIter=[];
 % initial vector for 'cold start'. see mpcqpsolver
 iA = false(size(bb));
+state = 1;
 for t=0:Ts:T
+    % Replication of the state selection Simulink block
+    objective = [xTargets(state, 1); 0 ; xTargets(state, 2); zeros(5, 1)];
+    if(all(x(:, end) -  objective < stateMargin))
+        state = state+1;
+        if(state > 4)
+            state = 1;
+        end
+    end
+    % Set bb and target.
+    xTarget = [xTargets(state, 1); 0 ; xTargets(state, 2); zeros(5, 1)];
+    bb = bbs(:, state) * 0.1;
     waitbar(t/T,hw,'Please wait...');
     tic;
-    [u,status,iA] = myMPController(H,G,gs,F,bb,J,L,x(:,end),xTarget,size(B,2),iA);
+    [u,status,iA] = myMPController(H,G,F,bb,J,L,x(:,end),xTarget,size(B,2),iA);
     optTime=toc;    
     if status<0
         close(hw);
@@ -33,6 +45,6 @@ t=0:Ts:t;
 x=x(:,1:length(t))';
 close(hw);
 figure('Name','Optimisation time'); 
-bar(t,allOpt);
+plot(t,allOpt);
 xlabel('Simulation time [s]')
 ylabel('Optimisation time [s]')

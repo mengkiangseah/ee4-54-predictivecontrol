@@ -22,21 +22,15 @@ N=10;
 T=30;
 
 %% Determine criteria (position, angle) for state achievement
-coordinateMargin = 0.05;
+coordinateMargin = 0.02;
 angleMargin = 15 * pi/180; 
 angleChangeMargin = 3 * pi/180; 
 stateMargin = [coordinateMargin, coordinateMargin, coordinateMargin, coordinateMargin, angleMargin, angleChangeMargin, angleMargin, angleChangeMargin]';
 
-%% Define other simulation parameters
-T=30; % duration of simulation
-xTarget=0.8*[xRange(2) 0 yRange(2) 0 0 0 0 0]'; % target equilibrium state
-xZero=xRange(1); yZero=yRange(1);
-x0=[xZero 0 yZero 0 0 0 0 0]'; % initial state
-
 %% Declare penalty matrices and tune them here:
 Q=eye(8) * 10;
 R=eye(2) * .001;
-P=Q * 10;
+P= Q * 10;
 Q(1,1) = 100;
 Q(3,3) = 100;
 %% Run.
@@ -48,12 +42,10 @@ Y = responseRHC.output.signals.values(:,3);
 THETA = responseRHC.output.signals.values(:,5);
 PSI = responseRHC.output.signals.values(:,7);
 
-% Outer Square
-massX = X + r*sin(THETA);
-massY = Y + r*sin(PSI);
-outerArea = abs(max(massX) - min(massX)) * abs(max(massY) - min(massY));
+massX = X+r*sin(THETA);
+massY = Y+r*sin(PSI);
 
-
+% Calculate inner limits
 stateAim = [permute(outputStates.data(1,1,:), [3, 1, 2]), permute(outputStates.data(3,1,:), [3, 1, 2])];
 
 % state 2: ymindash
@@ -61,20 +53,15 @@ stateAim = [permute(outputStates.data(1,1,:), [3, 1, 2]), permute(outputStates.d
 % state 4: ymaxdash
 % state 1: xmindash
 
-minYdash = max(Y(ismember(stateAim, xTargets(2, :), 'rows')));
-maxXdash = max(X(ismember(stateAim, xTargets(3, :), 'rows')));
-maxYdash = max(Y(ismember(stateAim, xTargets(4, :), 'rows')));
-minXdash = max(X(ismember(stateAim, xTargets(1, :), 'rows')));
+minYdash = max(massY(ismember(stateAim, xTargets(2, :), 'rows')));
+maxXdash = min(massX(ismember(stateAim, xTargets(3, :), 'rows')));
+maxYdash = min(massY(ismember(stateAim, xTargets(4, :), 'rows')));
+minXdash = max(massX(ismember(stateAim, xTargets(1, :), 'rows')));
 
-% Inner area:
-innerArea = abs(minYdash - maxYdash) * abs(maxXdash - minXdash);
-
-overallError = outerArea - innerArea;
-the_title = ['RHC Performance, Error: ', num2str(overallError)];
-
+% Plot it all
 craneMovementPlot(X,...
     Y, ...
     THETA, ...
     PSI, ...
-    xTargets, stateMargin, r, ...
-    the_title, 'rhc');
+    xTargets, stateMargin, [minXdash, maxXdash, minYdash, maxYdash], r, ...
+    'RHC Unconstrained', 'rhc');
