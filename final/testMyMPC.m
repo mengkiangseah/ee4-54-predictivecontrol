@@ -10,7 +10,7 @@ Tf=1.5; % duration of prediction horizon in seconds
 N=ceil(Tf/Ts); % ceiling to ensure horizon length N is an integer
 
 %% Load the dynamics matrices using a solution from last assignment
-[A,B,C,~] = genCraneODE(m,M,MR,r,g,Tx,Ty,Vm,Ts);
+[A,B,C,~] = myCraneODE(m,M,MR,r,g,Tx,Ty,Vm,Ts);
 
 %% Define other simulation parameters
 T=6; % duration of simulation
@@ -43,17 +43,17 @@ ul=[-1; -1];
 uh=[1; 1];
 
 %% Compute stage constraint matrices and vector
-[Dt,Et,bt]=genStageConstraints(A,B,D,cl,ch,ul,uh);
+[Dt,Et,bt]=myStageConstraints(A,B,D,cl,ch,ul,uh);
 
 %% Compute trajectory constraints matrices and vector
-[DD,EE,bb]=genTrajectoryConstraints(Dt,Et,bt,N);
+[DD,EE,bb]=myTrajectoryConstraints(Dt,Et,bt,N);
 
 %% Compute QP constraint matrices
-[Gamma,Phi] = genPrediction(A,B,N); % get prediction matrices:
-[F,J,L]=genConstraintMatrices(DD,EE,Gamma,Phi,N);
+[Gamma,Phi] = myPrediction(A,B,N); % get prediction matrices:
+[F,J,L]=myConstraintMatrices(DD,EE,Gamma,Phi,N);
 
 %% Compute QP cost matrices
-[H,G]=genCostMatrices(Gamma,Phi,Q,R,P,N);
+[H,G]=myCostMatrices(Gamma,Phi,Q,R,P,N);
 
 %% Compute matrices and vectors for soft constraints
 % Define weights for constraint violations
