@@ -23,24 +23,15 @@
 \usepackage{amssymb}  % assumes amsmath package installed
 
 \title{\LARGE \bf
-Preparation of Papers for IEEE Sponsored Conferences \& Symposia*
+Meng Kiang SEAH, CID: 00699092
 }
 
 
-\author{Albert Author$^{1}$ and Bernard D. Researcher$^{2}$% <-this % stops a space
-\thanks{*This work was not supported by any organization}% <-this % stops a space
-\thanks{$^{1}$Albert Author is with Faculty of Electrical Engineering, Mathematics and Computer Science,
-        University of Twente, 7500 AE Enschede, The Netherlands
-        {\tt\small albert.author@papercept.net}}%
-\thanks{$^{2}$Bernard D. Researcheris with the Department of Electrical Engineering, Wright State University,
-        Dayton, OH 45435, USA
-        {\tt\small b.d.researcher@ieee.org}}%
+\author{EE4-54: Predictive Control. Assignment 5. % <-this % stops a space
 }
 
 
 \begin{document}
-
-
 
 \maketitle
 \thispagestyle{empty}
@@ -49,33 +40,20 @@ Preparation of Papers for IEEE Sponsored Conferences \& Symposia*
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-
-This electronic document is a �live� template. The various components of your paper [title, text, heads, etc.] are already defined on the style sheet, as illustrated by the portions given in this document.
-
+Discussion of the results of Part A and B, and the conclusions drawn. Perhaps a little bit on the methods employed as well.
 \end{abstract}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{INTRODUCTION}
+\section{Part A - Tracking a Square}
 
 This template provides authors with most of the formatting specifications needed for preparing electronic versions of their papers. All standard paper components have been specified for three reasons: (1) ease of use when formatting individual papers, (2) automatic compliance to electronic requirements that facilitate the concurrent or later production of electronic products, and (3) conformity of style throughout a conference proceedings. Margins, column widths, line spacing, and type styles are built-in; examples of the type styles are provided throughout this document and are identified in italic type, within parentheses, following the example. Some components, such as multi-leveled equations, graphics, and tables are not prescribed, although the various table text styles are provided. The formatter will need to create these components, incorporating the applicable criteria that follow.
 
-\section{PROCEDURE FOR PAPER SUBMISSION}
+\section{Part B - Tracking non-Square Paths (Question 2)}
 
 \subsection{Selecting a Template (Heading 2)}
 
-First, confirm that you have the correct template for your paper size. This template has been tailored for output on the US-letter paper size.
-It may be used for A4 paper size if the paper size setting is suitably modified.
-
-\subsection{Maintaining the Integrity of the Specifications}
-
-Yes.
-
 \section{MATH}
-
-Before you begin to format your paper, first write and save the content as a separate text file. Keep your text and graphic files separate until after the text has been formatted and styled. Do not use hard tabs, and limit use of hard returns to only one return at the end of a paragraph. Do not add any kind of pagination anywhere in the paper. Do not number text heads-the template will do that for you.
-
-\subsection{Abbreviations and Acronyms} Define abbreviations and acronyms the first time they are used in the text, even after they have been defined in the abstract. Abbreviations such as IEEE, SI, MKS, CGS, sc, dc, and rms do not have to be defined. Do not use abbreviations in the title or heads unless they are unavoidable.
 
 \subsection{Units}
 
@@ -97,7 +75,11 @@ $$
 \alpha + \beta = \chi \eqno{(1)}
 $$
 
-Note that the equation is centered using a center tab stop. Be sure that the symbols in your equation have been defined before or immediately following the equation. Use �(1)�, not �Eq. (1)� or �equation (1)�, except at the beginning of a sentence: �Equation (1) is . . .�
+\begin{align}
+  J = \frac{1}{N} \sum_{n=1}^{N} \lvert \lvert x_n - \widetilde{x_n} \rvert \rvert ^2 = \sum_{i = M+1}^{D} \lambda_i \label{eq:erroreq}
+\end{align}
+
+Just a little check, Equation \ref{eq:erroreq}.
 
 \subsection{Some Common Mistakes}
 \begin{itemize}
